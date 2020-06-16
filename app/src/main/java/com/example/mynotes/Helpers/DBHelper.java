@@ -1,14 +1,15 @@
-package com.example.mynotes;
+package com.example.mynotes.Helpers;
+
 
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import org.w3c.dom.CDATASection;
+import com.example.mynotes.View.AddNoteView;
+import com.example.mynotes.Model.NotesArray;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -17,7 +18,7 @@ import java.util.Date;
 
 public class DBHelper extends SQLiteOpenHelper {
 
-    Notes notes;
+    AddNoteView notes;
 
     public static final int DATABASE_VERSION = 1;
     public static final String DATABASE_NAME = "notesDb";

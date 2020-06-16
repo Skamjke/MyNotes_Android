@@ -1,49 +1,24 @@
-package com.example.mynotes;
+package com.example.mynotes.View;
 
 import java.util.ArrayList;
-import java.util.List;
-import java.util.concurrent.TimeUnit;
 
-import android.content.ContentResolver;
-import android.content.Context;
 import android.content.Intent;
-import android.database.CharArrayBuffer;
-import android.database.ContentObserver;
 import android.database.Cursor;
-import android.database.DataSetObserver;
 import android.database.sqlite.SQLiteDatabase;
-import android.net.Uri;
-import android.provider.ContactsContract;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.LoaderManager.LoaderCallbacks;
-import android.support.v4.app.LoaderManager;
-import android.support.v4.content.CursorLoader;
-import android.support.v4.content.Loader;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.ContextMenu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.SimpleCursorAdapter;
-import android.widget.TextView;
-import android.widget.Toast;
 
-import org.w3c.dom.Text;
+import com.example.mynotes.Helpers.DBHelper;
+import com.example.mynotes.MainContract;
+import com.example.mynotes.Model.NotesAdapter;
+import com.example.mynotes.Model.NotesArray;
+import com.example.mynotes.R;
 
-import java.util.concurrent.TimeUnit;
-
-
-import java.util.concurrent.TimeUnit;
-
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+public class ListNoteView extends AppCompatActivity implements View.OnClickListener {
 
     private Button adNote;
     public int pos;
@@ -54,14 +29,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     public void onClick(View v)
     {
-        Intent addNotesint = new Intent(this, Notes.class);
+        Intent addNotesint = new Intent(this, AddNoteView.class);
         startActivity(addNotesint);
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.list_note_layout);
 
 
         fill_list_note();
@@ -90,7 +65,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 cursor.moveToPosition(position);
                 int[] arrayIndex = dbHelper.indexTaker(database);
                 pos = position;
-                Intent intent = new Intent(MainActivity.this, detailActivity.class);
+                Intent intent = new Intent(ListNoteView.this, DetailNoteView.class);
                 intent.putExtra("note_id", cursor.getString(arrayIndex[0]));
                 intent.putExtra("label", cursor.getString(arrayIndex[1]));
                 intent.putExtra("text", cursor.getString(arrayIndex[2]));
@@ -106,7 +81,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 pos = position;
                 cursor.moveToPosition(pos);
                 int[] arrayIndex = dbHelper.indexTaker(database);
-                Intent intent = new Intent(MainActivity.this, edit_note.class);
+                Intent intent = new Intent(ListNoteView.this, EditNoteView.class);
                 intent.putExtra("note_id", cursor.getString(arrayIndex[0]));
                 intent.putExtra("label", cursor.getString(arrayIndex[1]));
                 intent.putExtra("text", cursor.getString(arrayIndex[2]));
@@ -119,7 +94,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onRestart()
     {
         super.onRestart();
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.list_note_layout);
         fill_list_note();
     }
 }

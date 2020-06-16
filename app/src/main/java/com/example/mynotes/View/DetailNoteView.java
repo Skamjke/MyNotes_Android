@@ -1,4 +1,4 @@
-package com.example.mynotes;
+package com.example.mynotes.View;
 
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
@@ -9,7 +9,10 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class detailActivity extends AppCompatActivity implements View.OnClickListener {
+import com.example.mynotes.Helpers.DBHelper;
+import com.example.mynotes.R;
+
+public class DetailNoteView extends AppCompatActivity implements View.OnClickListener {
 
     TextView lableView,textView;
     Button delBtn;
@@ -26,17 +29,17 @@ public class detailActivity extends AppCompatActivity implements View.OnClickLis
         Toast toast = Toast.makeText(getApplicationContext(), "Запись удалена", Toast.LENGTH_SHORT);
         toast.show();
 
-        Intent backActivity = new Intent(this, MainActivity.class);
+        Intent backActivity = new Intent(this, ListNoteView.class);
         startActivity(backActivity);
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_detail);
+        setContentView(R.layout.detail_note_layout);
 
         delBtn = (Button)findViewById(R.id.delBtn);
-        delBtn.setOnClickListener(detailActivity.this);
+        delBtn.setOnClickListener(DetailNoteView.this);
 
         lableView = (TextView)findViewById(R.id.label_note);
         textView = (TextView)findViewById(R.id.text_note);

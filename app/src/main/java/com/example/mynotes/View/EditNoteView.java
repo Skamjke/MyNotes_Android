@@ -1,4 +1,4 @@
-package com.example.mynotes;
+package com.example.mynotes.View;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -11,10 +11,13 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.mynotes.Helpers.DBHelper;
+import com.example.mynotes.R;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class edit_note extends AppCompatActivity implements View.OnClickListener {
+public class EditNoteView extends AppCompatActivity implements View.OnClickListener {
 
     TextView lNote, tNote;
     DBHelper dbHelper;
@@ -24,7 +27,7 @@ public class edit_note extends AppCompatActivity implements View.OnClickListener
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_edit_note);
+        setContentView(R.layout.edit_note_layout);
 
         ctx = this.getApplicationContext();
 
@@ -32,10 +35,10 @@ public class edit_note extends AppCompatActivity implements View.OnClickListener
         tNote = (TextView)findViewById(R.id.text_note);
 
         saveEdit = (Button)findViewById(R.id.save_edit);
-        saveEdit.setOnClickListener(edit_note.this);
+        saveEdit.setOnClickListener(EditNoteView.this);
 
         backToMain = (Button)findViewById(R.id.backBtn);
-        backToMain.setOnClickListener(edit_note.this);
+        backToMain.setOnClickListener(EditNoteView.this);
 
         Intent intent = getIntent();
          LNote = intent.getStringExtra("label");

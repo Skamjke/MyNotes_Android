@@ -1,5 +1,7 @@
 package com.example.mynotes;
 
+import com.example.mynotes.Model.NotesArray;
+
 import java.util.ArrayList;
 
 public interface MainContract {

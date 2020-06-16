@@ -1,12 +1,13 @@
-package com.example.mynotes;
+package com.example.mynotes.Model;
 
 import android.content.Context;
-import android.provider.ContactsContract;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
+
+import com.example.mynotes.R;
 
 import java.util.ArrayList;
 
@@ -16,13 +17,12 @@ public class NotesAdapter extends BaseAdapter {
     LayoutInflater lInflater;
     ArrayList<NotesArray> object;
 
-    NotesAdapter(Context context, ArrayList<NotesArray> notes)
+    public NotesAdapter(Context context, ArrayList<NotesArray> notes)
     {
         ctx = context;
         object = notes;
         lInflater = (LayoutInflater) ctx
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-
     }
 
     @Override
@@ -48,7 +48,7 @@ public class NotesAdapter extends BaseAdapter {
         View view = convertView;
         if (view == null)
         {
-            view = lInflater.inflate(R.layout.list_item_note, parent, false);
+            view = lInflater.inflate(R.layout.list_item_layout, parent, false);
         }
         NotesArray n = getNotes(position);
 

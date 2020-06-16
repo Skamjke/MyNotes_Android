@@ -1,12 +1,9 @@
-package com.example.mynotes;
+package com.example.mynotes.View;
 
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.ContentValues;
-import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
-import android.provider.ContactsContract;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -14,10 +11,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import com.example.mynotes.Helpers.DBHelper;
+import com.example.mynotes.R;
 
-public class Notes extends AppCompatActivity implements View.OnClickListener {
+public class AddNoteView extends AppCompatActivity implements View.OnClickListener {
 
     Context ctx;
     DBHelper dbHelper;
@@ -48,7 +45,7 @@ public class Notes extends AppCompatActivity implements View.OnClickListener {
                 case R.id.backBtn:
                     if (lNote.length() > 0)
                     {
-                    AlertDialog.Builder builder = new AlertDialog.Builder(Notes.this);
+                    AlertDialog.Builder builder = new AlertDialog.Builder(AddNoteView.this);
                     builder.setMessage("Сохранить изменения?");
                     builder.setCancelable(false);
                         builder.setPositiveButton("Да", new DialogInterface.OnClickListener() {
@@ -84,10 +81,10 @@ public class Notes extends AppCompatActivity implements View.OnClickListener {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_notes);
+        setContentView(R.layout.add_note_layout);
 
         backToMain = (Button)findViewById(R.id.backBtn);
-        backToMain.setOnClickListener(Notes.this);
+        backToMain.setOnClickListener(AddNoteView.this);
 
         saveBtn = (Button)findViewById(R.id.save_edit);
         saveBtn.setOnClickListener(this);

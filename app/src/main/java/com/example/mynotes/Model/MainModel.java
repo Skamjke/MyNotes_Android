@@ -1,18 +1,21 @@
-package com.example.mynotes;
+package com.example.mynotes.Model;
 
-import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
+
+import com.example.mynotes.Helpers.DBHelper;
+import com.example.mynotes.View.ListNoteView;
+import com.example.mynotes.MainContract;
 
 import java.util.ArrayList;
 
-public class MainRepository implements MainContract.Repository {
+public class MainModel implements MainContract.Repository {
     DBHelper dbHelper;
-    MainActivity mainActivity;
+    ListNoteView mainActivity;
 
     @Override
     public ArrayList<NotesArray> loadNote()
     {
-        mainActivity = new MainActivity();
+        mainActivity = new ListNoteView();
         dbHelper = new DBHelper(mainActivity);
         SQLiteDatabase database = dbHelper.getReadableDatabase();
         return dbHelper.noteView(database);
