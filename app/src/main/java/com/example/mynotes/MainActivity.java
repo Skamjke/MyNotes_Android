@@ -88,7 +88,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             public void onItemClick(AdapterView<?> parent, View itemClicked, int position, long id) {
                 Cursor cursor = database.query(DBHelper.TABLE_NOTES, null,null,null,null,null,null);
                 cursor.moveToPosition(position);
-                int idIndex = cursor.getColumnIndex(DBHelper.KEY_ID);
                 int[] arrayIndex = dbHelper.indexTaker(database);
                 pos = position;
                 Intent intent = new Intent(MainActivity.this, detailActivity.class);
