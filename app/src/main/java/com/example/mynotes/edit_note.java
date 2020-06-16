@@ -20,10 +20,13 @@ public class edit_note extends AppCompatActivity implements View.OnClickListener
     DBHelper dbHelper;
     String LNote,TNote,idNote;
     Button saveEdit, backToMain;
+    Context ctx;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_note);
+
+        ctx = this.getApplicationContext();
 
         lNote = (TextView)findViewById(R.id.label_note);
         tNote = (TextView)findViewById(R.id.text_note);
@@ -49,8 +52,8 @@ public class edit_note extends AppCompatActivity implements View.OnClickListener
 
     public void onClick(View v)
     {
-        String lNoteCheck = lNote.getText().toString();
-        String tNoteCheck = tNote.getText().toString();
+        String LNote = lNote.getText().toString();
+        String TNote = tNote.getText().toString();
         ContentValues cv = new ContentValues();
         switch (v.getId())
         {
@@ -60,20 +63,13 @@ public class edit_note extends AppCompatActivity implements View.OnClickListener
                     break;
                 }
 
-                if (lNoteCheck.length() > 0)
+                if (LNote.length() > 0)
                 {
                     final Date date = new Date();
                     final SimpleDateFormat datenow = new SimpleDateFormat("dd.MM.yyyy");
-
                     SQLiteDatabase database = dbHelper.getWritableDatabase();
-
-                    cv.put(DBHelper.KEY_LNotes, lNoteCheck);
-                    cv.put(DBHelper.KEY_TNotes, tNoteCheck);
-                    cv.put(DBHelper.KEY_DATE, datenow.format(date));
-                    int updCount = database.update(DBHelper.TABLE_NOTES, cv, DBHelper.KEY_ID + "= ?", new String[]{idNote});
-                    database.close();
-                    Toast toast = Toast.makeText(getApplicationContext(), "Запись изменена!", Toast.LENGTH_SHORT);
-                    toast.show();
+                    dbHelper.updNote(ctx, LNote, TNote, idNote, database);
+                    dbHelper.close();
                     finish();
                 }else {Toast toast = Toast.makeText(getApplicationContext(), "Название заметки отстуствует!", Toast.LENGTH_SHORT); toast.show();};
                 break;

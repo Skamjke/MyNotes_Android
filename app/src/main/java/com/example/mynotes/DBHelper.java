@@ -1,11 +1,24 @@
 package com.example.mynotes;
 
+import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import org.w3c.dom.CDATASection;
+
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 
 
 public class DBHelper extends SQLiteOpenHelper {
+
+    Notes notes;
+
     public static final int DATABASE_VERSION = 1;
     public static final String DATABASE_NAME = "notesDb";
     public static final String TABLE_NOTES = "notes";
@@ -36,6 +49,57 @@ public class DBHelper extends SQLiteOpenHelper {
         db.execSQL("drop table if exists " + TABLE_NOTES);
 
         onCreate(db);
+    }
+
+    public void addNote(Context context, String lNote, String tNote , SQLiteDatabase database)
+    {
+        final Date date = new Date();
+        final SimpleDateFormat datenow = new SimpleDateFormat("dd.MM.yyyy");
+        ContentValues cv = new ContentValues();
+        cv.put(DBHelper.KEY_LNotes, lNote.toString());
+        cv.put(DBHelper.KEY_TNotes, tNote.toString());
+        cv.put(DBHelper.KEY_DATE, datenow.format(date));
+        database.insert(DBHelper.TABLE_NOTES, null, cv);
+        Toast toast = Toast.makeText(context, "Запись сохранена", Toast.LENGTH_SHORT);
+        toast.show();
+    }
+
+    public void updNote(Context context, String lNote, String tNote, String id_Note, SQLiteDatabase database)
+    {
+        final Date date = new Date();
+        final SimpleDateFormat datenow = new SimpleDateFormat("dd.MM.yyyy");
+        ContentValues cv = new ContentValues();
+        cv.put(DBHelper.KEY_LNotes, lNote);
+        cv.put(DBHelper.KEY_TNotes, tNote);
+        cv.put(DBHelper.KEY_DATE, datenow.format(date));
+        int updCount = database.update(DBHelper.TABLE_NOTES, cv, DBHelper.KEY_ID + "= ?", new String[]{id_Note});
+        Toast toast = Toast.makeText(context, "Запись изменена!", Toast.LENGTH_SHORT);
+        toast.show();
+    }
+
+    public int[] indexTaker(SQLiteDatabase database)
+    {
+        Cursor cursor = database.query(DBHelper.TABLE_NOTES, null, null, null,null,null,null);
+        int[] arrayIndex = new int[4];
+        arrayIndex[0] = cursor.getColumnIndex(DBHelper.KEY_ID);
+        arrayIndex[1] = cursor.getColumnIndex(DBHelper.KEY_LNotes);
+        arrayIndex[2] = cursor.getColumnIndex(DBHelper.KEY_TNotes);
+        arrayIndex[3] = cursor.getColumnIndex(DBHelper.KEY_DATE);
+
+        return arrayIndex;
+    }
+
+    public ArrayList<NotesArray> noteView(SQLiteDatabase database) {
+        ArrayList<NotesArray> notes = new ArrayList<>();
+        Cursor cursor = database.query(DBHelper.TABLE_NOTES, null, null, null, null, null, null);
+
+        int[] arrayIndex = indexTaker(database);
+        if (cursor.moveToFirst()) {
+            do {
+                notes.add(new NotesArray(cursor.getString(arrayIndex[1]), null, cursor.getString(arrayIndex[3])));
+            } while (cursor.moveToNext());
+        }
+        return notes;
     }
 
 }
