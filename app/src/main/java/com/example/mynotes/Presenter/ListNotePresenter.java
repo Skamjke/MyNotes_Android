@@ -2,26 +2,26 @@ package com.example.mynotes.Presenter;
 
 import com.example.mynotes.MainContract;
 import com.example.mynotes.Model.MainModel;
-import com.example.mynotes.Model.NotesArray;
+import com.example.mynotes.Helpers.NotesArray;
 
 import java.util.ArrayList;
 
-public class MainPresenter implements MainContract.Presenter {
+public class ListNotePresenter implements MainContract.Presenter {
 
     private MainContract.View mView;
-    private MainContract.Repository mRepository;
+    private MainContract.Model mModel;
 
     private ArrayList<NotesArray> arrayNotes;
 
-    public MainPresenter(MainContract.View mView)
+    public ListNotePresenter(MainContract.View mView)
     {
         this.mView = mView;
-        this.mRepository = new MainModel();
+        this.mModel = new MainModel();
     }
 
     public void activityOnLoad()
     {
-        arrayNotes = mRepository.loadNote();
+        arrayNotes = mModel.loadNote();
         mView.showData(arrayNotes);
     }
 }

@@ -17,20 +17,17 @@ public class DetailNoteView extends AppCompatActivity implements View.OnClickLis
     TextView lableView,textView;
     Button delBtn;
     DBHelper dbHelper;
+    private String id_note, lNote, tNote;
 
     public void onClick(View v)
     {
         dbHelper = new DBHelper(this);
         SQLiteDatabase database = dbHelper.getWritableDatabase();
 
-        Intent intent = getIntent();
-        int id_note = intent.getIntExtra("note_id", 0);
         int delCount = database.delete(DBHelper.TABLE_NOTES, DBHelper.KEY_ID + "=" + id_note, null);
         Toast toast = Toast.makeText(getApplicationContext(), "Запись удалена", Toast.LENGTH_SHORT);
         toast.show();
-
-        Intent backActivity = new Intent(this, ListNoteView.class);
-        startActivity(backActivity);
+        finish();
     }
 
     @Override
@@ -45,12 +42,12 @@ public class DetailNoteView extends AppCompatActivity implements View.OnClickLis
         textView = (TextView)findViewById(R.id.text_note);
 
         Intent intent = getIntent();
+        id_note = intent.getStringExtra("note_id");
+        lNote = intent.getStringExtra("label");
+        tNote = intent.getStringExtra("text");
 
-        String label_note = intent.getStringExtra("label");
-        String text_note = intent.getStringExtra("text");
-
-        lableView.setText(label_note);
-        textView.setText(text_note);
+        lableView.setText(lNote);
+        textView.setText(tNote);
 
     }
 }

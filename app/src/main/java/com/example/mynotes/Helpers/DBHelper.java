@@ -9,7 +9,6 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.widget.Toast;
 
 import com.example.mynotes.View.AddNoteView;
-import com.example.mynotes.Model.NotesArray;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -94,9 +93,10 @@ public class DBHelper extends SQLiteOpenHelper {
         ArrayList<NotesArray> notes = new ArrayList<>();
         Cursor cursor = database.query(DBHelper.TABLE_NOTES, null, null, null, null, null, null);
 
-        int[] arrayIndex = indexTaker(database);
+        int[] arrayIndex;
         if (cursor.moveToFirst()) {
             do {
+                arrayIndex = indexTaker(database);
                 notes.add(new NotesArray(cursor.getString(arrayIndex[1]), null, cursor.getString(arrayIndex[3])));
             } while (cursor.moveToNext());
         }

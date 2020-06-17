@@ -1,6 +1,6 @@
 package com.example.mynotes;
 
-import com.example.mynotes.Model.NotesArray;
+import com.example.mynotes.Helpers.NotesArray;
 
 import java.util.ArrayList;
 
@@ -15,7 +15,7 @@ public interface MainContract {
         void activityOnLoad();
     }
 
-    interface Repository
+    interface Model
     {
         ArrayList<NotesArray> loadNote();
     }

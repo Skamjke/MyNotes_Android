@@ -14,18 +14,18 @@ import android.widget.ListView;
 
 import com.example.mynotes.Helpers.DBHelper;
 import com.example.mynotes.MainContract;
-import com.example.mynotes.Model.NotesAdapter;
-import com.example.mynotes.Model.NotesArray;
+import com.example.mynotes.Helpers.NotesAdapter;
+import com.example.mynotes.Helpers.NotesArray;
 import com.example.mynotes.R;
 
 public class ListNoteView extends AppCompatActivity implements View.OnClickListener {
 
     private Button adNote;
+    private MainContract.Presenter mPresenter;
     public int pos;
     NotesAdapter noteAdapter;
     DBHelper dbHelper;
 
-    private MainContract.Presenter mPresenter;
 
     public void onClick(View v)
     {
@@ -37,7 +37,6 @@ public class ListNoteView extends AppCompatActivity implements View.OnClickListe
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.list_note_layout);
-
 
         fill_list_note();
     }
@@ -91,8 +90,7 @@ public class ListNoteView extends AppCompatActivity implements View.OnClickListe
             }
         });
     }
-    public void onRestart()
-    {
+    public void onRestart() {
         super.onRestart();
         setContentView(R.layout.list_note_layout);
         fill_list_note();

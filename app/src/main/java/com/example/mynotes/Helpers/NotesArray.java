@@ -1,4 +1,4 @@
-package com.example.mynotes.Model;
+package com.example.mynotes.Helpers;
 
 import java.util.jar.Attributes;
 

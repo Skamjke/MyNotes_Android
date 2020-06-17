@@ -21,7 +21,7 @@ public class EditNoteView extends AppCompatActivity implements View.OnClickListe
 
     TextView lNote, tNote;
     DBHelper dbHelper;
-    String LNote,TNote,idNote;
+    String LNote,TNote, idNote;
     Button saveEdit, backToMain;
     Context ctx;
     @Override
