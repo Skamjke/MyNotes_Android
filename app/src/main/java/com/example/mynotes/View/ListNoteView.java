@@ -26,6 +26,7 @@ public class ListNoteView extends AppCompatActivity implements View.OnClickListe
     DBHelper dbHelper;
     AddNoteView addNoteView;
 
+    @Override
     public void onClick(View v)
     {
         Intent addNotesint = new Intent(this, AddNoteView.class);

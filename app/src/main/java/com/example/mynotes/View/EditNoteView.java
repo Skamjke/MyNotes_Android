@@ -68,8 +68,6 @@ public class EditNoteView extends AppCompatActivity implements View.OnClickListe
 
                 if (LNote.length() > 0)
                 {
-                    final Date date = new Date();
-                    final SimpleDateFormat datenow = new SimpleDateFormat("dd.MM.yyyy");
                     SQLiteDatabase database = dbHelper.getWritableDatabase();
                     dbHelper.updNote(ctx, LNote, TNote, idNote, database);
                     dbHelper.close();
