@@ -17,14 +17,14 @@ import com.example.mynotes.MainContract;
 import com.example.mynotes.Model.ModelNoteAdapter;
 import com.example.mynotes.R;
 
-public class ListNoteView extends AppCompatActivity implements View.OnClickListener {
+public class ListNoteView extends AppCompatActivity implements View.OnClickListener, AdapterView.OnItemLongClickListener, AdapterView.OnItemClickListener {
 
     private Button adNote;
     private MainContract.Presenter mPresenter;
-    public int pos;
+    public long pos,__id;
     ModelNoteAdapter noteAdapter;
     DBHelper dbHelper;
-
+    AddNoteView addNoteView;
 
     public void onClick(View v)
     {
@@ -54,44 +54,43 @@ public class ListNoteView extends AppCompatActivity implements View.OnClickListe
 
         nl.setAdapter(noteAdapter);
 
-        nl.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-
-            SQLiteDatabase database = dbHelper.getReadableDatabase();
-            @Override
-            public void onItemClick(AdapterView<?> parent, View itemClicked, int position, long id) {
-                Cursor cursor = database.query(DBHelper.TABLE_NOTES, null,null,null,null,null,null);
-                cursor.moveToPosition(position);
-                int[] arrayIndex = dbHelper.indexTaker(database);
-                pos = position;
-                Intent intent = new Intent(ListNoteView.this, DetailNoteView.class);
-                intent.putExtra("note_id", cursor.getString(arrayIndex[0]));
-                intent.putExtra("label", cursor.getString(arrayIndex[1]));
-                intent.putExtra("text", cursor.getString(arrayIndex[2]));
-                startActivity(intent);
-                dbHelper.close();
-            }
-        });
-        nl.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-            SQLiteDatabase database = dbHelper.getReadableDatabase();
-            @Override
-            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                Cursor cursor = database.query(DBHelper.TABLE_NOTES, null,null,null,null,null,null);
-                pos = position;
-                cursor.moveToPosition(pos);
-                int[] arrayIndex = dbHelper.indexTaker(database);
-                Intent intent = new Intent(ListNoteView.this, EditNoteView.class);
-                intent.putExtra("note_id", cursor.getString(arrayIndex[0]));
-                intent.putExtra("label", cursor.getString(arrayIndex[1]));
-                intent.putExtra("text", cursor.getString(arrayIndex[2]));
-                startActivity(intent);
-                dbHelper.close();
-                return false;
-            }
-        });
+        nl.setOnItemClickListener(this);
+        nl.setOnItemLongClickListener(this);
     }
+
     public void onRestart() {
         super.onRestart();
         setContentView(R.layout.list_note_layout);
         fill_list_note();
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        SQLiteDatabase database = dbHelper.getReadableDatabase();
+        Cursor cursor = database.query(DBHelper.TABLE_NOTES, null,null,null,null,null,null);
+        cursor.moveToPosition(position);
+        int[] arrayIndex = dbHelper.indexTaker(database);
+        Intent intent = new Intent(ListNoteView.this, DetailNoteView.class);
+        intent.putExtra("note_id", cursor.getString(arrayIndex[0]));
+        intent.putExtra("label", cursor.getString(arrayIndex[1]));
+        intent.putExtra("text", cursor.getString(arrayIndex[2]));
+        startActivity(intent);
+        dbHelper.close();
+    }
+
+    @Override
+    public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+        SQLiteDatabase database = dbHelper.getReadableDatabase();
+        Cursor cursor = database.query(DBHelper.TABLE_NOTES, null,null,null,null,null,null);
+        cursor.moveToPosition(position);
+        int[] arrayIndex = dbHelper.indexTaker(database);
+        __id = cursor.getLong(arrayIndex[0]);
+        Intent intent = new Intent(ListNoteView.this, EditNoteView.class);
+        intent.putExtra("note_id", cursor.getString(arrayIndex[0]));
+        intent.putExtra("label", cursor.getString(arrayIndex[1]));
+        intent.putExtra("text", cursor.getString(arrayIndex[2]));
+        startActivity(intent);
+        dbHelper.close();
+        return false;
     }
 }

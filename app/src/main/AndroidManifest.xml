@@ -9,7 +9,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".View.EditNoteView"
+        <activity android:name=".View.MainActivity"></activity>
+        <activity
+            android:name=".View.EditNoteView"
             android:label="Редактирование">
             <intent-filter>
                 <action android:name="com.example.mynotes.edit_note" />
@@ -17,7 +19,8 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        <activity android:name=".View.DetailNoteView"
+        <activity
+            android:name=".View.DetailNoteView"
             android:label="Детальный просмотр">
             <intent-filter>
                 <action android:name="com.example.mynotes.detailActivity" />
@@ -25,7 +28,8 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        <activity android:name=".View.AddNoteView"
+        <activity
+            android:name=".View.AddNoteView"
             android:label="Создание заметки">
             <intent-filter>
                 <action android:name="com.example.mynotes.Notes" />
@@ -33,7 +37,8 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        <activity android:name=".View.ListNoteView"
+        <activity
+            android:name=".View.ListNoteView"
             android:label="Мои заметки">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

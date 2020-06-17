@@ -21,7 +21,6 @@ public class DetailNoteView extends AppCompatActivity implements View.OnClickLis
 
     public void onClick(View v)
     {
-        dbHelper = new DBHelper(this);
         SQLiteDatabase database = dbHelper.getWritableDatabase();
 
         int delCount = database.delete(DBHelper.TABLE_NOTES, DBHelper.KEY_ID + "=" + id_note, null);
@@ -34,6 +33,8 @@ public class DetailNoteView extends AppCompatActivity implements View.OnClickLis
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.detail_note_layout);
+
+        dbHelper = new DBHelper(this);
 
         delBtn = (Button)findViewById(R.id.delBtn);
         delBtn.setOnClickListener(DetailNoteView.this);

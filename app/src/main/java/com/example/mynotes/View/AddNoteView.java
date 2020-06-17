@@ -14,7 +14,7 @@ import android.widget.Toast;
 import com.example.mynotes.Helpers.DBHelper;
 import com.example.mynotes.R;
 
-public class AddNoteView extends AppCompatActivity implements View.OnClickListener {
+public class AddNoteView extends AppCompatActivity implements View.OnClickListener, DialogInterface.OnClickListener {
 
     Context ctx;
     DBHelper dbHelper;
@@ -22,11 +22,12 @@ public class AddNoteView extends AppCompatActivity implements View.OnClickListen
     private Button saveBtn, backToMain;
     private EditText LNote;
     private EditText TNote;
+    private String lNote, tNote;
 
     public void onClick(View v)
     {
-         final String lNote = LNote.getText().toString();
-         final String tNote = TNote.getText().toString();
+         lNote = LNote.getText().toString();
+         tNote = TNote.getText().toString();
 
         switch (v.getId())
         {
@@ -45,38 +46,29 @@ public class AddNoteView extends AppCompatActivity implements View.OnClickListen
                 case R.id.backBtn:
                     if (lNote.length() > 0)
                     {
-                    AlertDialog.Builder builder = new AlertDialog.Builder(AddNoteView.this);
-                    builder.setMessage("Сохранить изменения?");
-                    builder.setCancelable(false);
-                        builder.setPositiveButton("Да", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                if (database != dbHelper.getWritableDatabase())
-                                    database = dbHelper.getWritableDatabase();
-                                dbHelper.addNote(ctx, lNote, tNote, database);
-                                dbHelper.close();
-                                finish();
-                            }
-
-                        });
-                        builder.setNegativeButton("Нет", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                finish();
-                            }
-                        });
-                        AlertDialog alert = builder.create();
-                        alert.setTitle("Закрытие формы");
-                        alert.show();
-                } else
-                {
-                    finish();
-                }
+                        AlertDLG();
+                    } else
+                        {
+                            finish();
+                        }
 
                 break;
         }
         dbHelper.close();
     }
+
+    public void AlertDLG () {
+        AlertDialog.Builder builder = new AlertDialog.Builder(AddNoteView.this);
+        builder.setMessage("Сохранить заметку?");
+        builder.setCancelable(false);
+        builder.setPositiveButton("Да", this);
+        builder.setNegativeButton("Нет", this);
+        AlertDialog alert = builder.create();
+        alert.setTitle("Закрытие формы");
+        alert.show();
+    }
+
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -87,7 +79,7 @@ public class AddNoteView extends AppCompatActivity implements View.OnClickListen
         backToMain.setOnClickListener(AddNoteView.this);
 
         saveBtn = (Button)findViewById(R.id.save_edit);
-        saveBtn.setOnClickListener(this);
+        saveBtn.setOnClickListener(AddNoteView.this);
 
         LNote = (EditText)findViewById(R.id.label_note);
         TNote = (EditText)findViewById(R.id.text_note);
@@ -95,6 +87,23 @@ public class AddNoteView extends AppCompatActivity implements View.OnClickListen
         ctx = this.getApplicationContext();
 
         dbHelper = new DBHelper(this);
+    }
+
+    @Override
+    public void onClick(DialogInterface dialog, int which) {
+    switch (which)
+    {
+        case -1:
+            if (database != dbHelper.getWritableDatabase())
+                database = dbHelper.getWritableDatabase();
+            dbHelper.addNote(ctx, lNote, tNote, database);
+            dbHelper.close();
+            finish();
+            break;
+        case -2:
+            finish();
+            break;
+    }
     }
 
 
