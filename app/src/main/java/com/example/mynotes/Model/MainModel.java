@@ -3,9 +3,9 @@ package com.example.mynotes.Model;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.example.mynotes.Helpers.DBHelper;
-import com.example.mynotes.Helpers.NotesArray;
 import com.example.mynotes.View.ListNoteView;
 import com.example.mynotes.MainContract;
+import com.example.mynotes.View.NoteArrayView;
 
 import java.util.ArrayList;
 
@@ -14,7 +14,7 @@ public class MainModel implements MainContract.Model {
     ListNoteView mainActivity;
 
     @Override
-    public ArrayList<NotesArray> loadNote()
+    public ArrayList<NoteArrayView> loadNote()
     {
         mainActivity = new ListNoteView();
         dbHelper = new DBHelper(mainActivity);

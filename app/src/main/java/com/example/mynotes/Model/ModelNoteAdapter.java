@@ -1,4 +1,4 @@
-package com.example.mynotes.Helpers;
+package com.example.mynotes.Model;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -8,16 +8,17 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.example.mynotes.R;
+import com.example.mynotes.View.NoteArrayView;
 
 import java.util.ArrayList;
 
-public class NotesAdapter extends BaseAdapter {
+public class ModelNoteAdapter extends BaseAdapter {
 
     Context ctx;
     LayoutInflater lInflater;
-    ArrayList<NotesArray> object;
+    ArrayList<NoteArrayView> object;
 
-    public NotesAdapter(Context context, ArrayList<NotesArray> notes)
+    public ModelNoteAdapter(Context context, ArrayList<NoteArrayView> notes)
     {
         ctx = context;
         object = notes;
@@ -50,7 +51,7 @@ public class NotesAdapter extends BaseAdapter {
         {
             view = lInflater.inflate(R.layout.list_item_layout, parent, false);
         }
-        NotesArray n = getNotes(position);
+        NoteArrayView n = getNotes(position);
 
         ((TextView) view.findViewById(R.id.lNote)).setText(n.name);
         ((TextView) view.findViewById(R.id.cDate)).setText(n.date);
@@ -59,8 +60,8 @@ public class NotesAdapter extends BaseAdapter {
     }
 
 
-    NotesArray getNotes(int position)
+    NoteArrayView getNotes(int position)
     {
-        return ((NotesArray) getItem(position));
+        return ((NoteArrayView) getItem(position));
     }
 }

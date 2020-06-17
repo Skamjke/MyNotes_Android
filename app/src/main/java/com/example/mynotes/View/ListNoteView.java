@@ -14,8 +14,7 @@ import android.widget.ListView;
 
 import com.example.mynotes.Helpers.DBHelper;
 import com.example.mynotes.MainContract;
-import com.example.mynotes.Helpers.NotesAdapter;
-import com.example.mynotes.Helpers.NotesArray;
+import com.example.mynotes.Model.ModelNoteAdapter;
 import com.example.mynotes.R;
 
 public class ListNoteView extends AppCompatActivity implements View.OnClickListener {
@@ -23,7 +22,7 @@ public class ListNoteView extends AppCompatActivity implements View.OnClickListe
     private Button adNote;
     private MainContract.Presenter mPresenter;
     public int pos;
-    NotesAdapter noteAdapter;
+    ModelNoteAdapter noteAdapter;
     DBHelper dbHelper;
 
 
@@ -46,8 +45,8 @@ public class ListNoteView extends AppCompatActivity implements View.OnClickListe
         dbHelper = new DBHelper(this);
         SQLiteDatabase database = dbHelper.getReadableDatabase();
 
-        ArrayList<NotesArray> notes = dbHelper.noteView(database);
-        noteAdapter = new NotesAdapter(this, notes);
+        ArrayList<NoteArrayView> notes = dbHelper.noteView(database);
+        noteAdapter = new ModelNoteAdapter(this, notes);
         ListView nl = (ListView) findViewById(R.id.nl);
 
         adNote = (Button) findViewById(R.id.addNotes);

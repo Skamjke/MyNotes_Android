@@ -1,13 +1,13 @@
 package com.example.mynotes;
 
-import com.example.mynotes.Helpers.NotesArray;
+import com.example.mynotes.View.NoteArrayView;
 
 import java.util.ArrayList;
 
 public interface MainContract {
     interface View
     {
-        void showData(ArrayList<NotesArray> notesArrays);
+        void showData(ArrayList<NoteArrayView> notesArrays);
     }
 
     interface Presenter
@@ -17,6 +17,6 @@ public interface MainContract {
 
     interface Model
     {
-        ArrayList<NotesArray> loadNote();
+        ArrayList<NoteArrayView> loadNote();
     }
 }
