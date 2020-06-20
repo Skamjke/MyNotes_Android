@@ -12,7 +12,7 @@ import android.widget.ListView;
 
 import com.example.mynotes.Interface.IListNotePresenter;
 import com.example.mynotes.Interface.IListNoteView;
-import com.example.mynotes.Model.ModelNoteAdapter;
+import com.example.mynotes.Presenter.NoteAdapterPresenter;
 import com.example.mynotes.Presenter.ListNotePresenter;
 import com.example.mynotes.R;
 
@@ -21,7 +21,7 @@ public class ListNoteView extends AppCompatActivity implements View.OnClickListe
     private Button addNote;
     IListNotePresenter iListNotePresenter;
     private ListView nl;
-    private ModelNoteAdapter noteAdapter;
+    private NoteAdapterPresenter noteAdapter;
     private ArrayList<NoteArrayView> notes;
 
 

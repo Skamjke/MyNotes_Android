@@ -7,6 +7,7 @@ import android.widget.ListView;
 
 import com.example.mynotes.Helpers.DBHelper;
 import com.example.mynotes.Interface.IMainModel;
+import com.example.mynotes.Presenter.NoteAdapterPresenter;
 import com.example.mynotes.View.NoteArrayView;
 
 import java.util.ArrayList;
@@ -43,7 +44,7 @@ public class MainModel implements IMainModel {
         DBHelper dbHelper = new DBHelper(context);
         SQLiteDatabase database = dbHelper.getReadableDatabase();
         ArrayList<NoteArrayView> notes = dbHelper.noteView(database);
-        ModelNoteAdapter noteAdapter = new ModelNoteAdapter(context, notes);
+        NoteAdapterPresenter noteAdapter = new NoteAdapterPresenter(context, notes);
         nl.setAdapter(noteAdapter);
         dbHelper.close();
     }

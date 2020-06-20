@@ -1,4 +1,4 @@
-package com.example.mynotes.Model;
+package com.example.mynotes.Presenter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -12,13 +12,13 @@ import com.example.mynotes.View.NoteArrayView;
 
 import java.util.ArrayList;
 
-public class ModelNoteAdapter extends BaseAdapter {
+public class NoteAdapterPresenter extends BaseAdapter {
 
     Context ctx;
     LayoutInflater lInflater;
     ArrayList<NoteArrayView> object;
 
-    public ModelNoteAdapter(Context context, ArrayList<NoteArrayView> notes)
+    public NoteAdapterPresenter(Context context, ArrayList<NoteArrayView> notes)
     {
         ctx = context;
         object = notes;
