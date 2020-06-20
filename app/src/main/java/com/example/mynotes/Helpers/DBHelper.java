@@ -61,8 +61,6 @@ public class DBHelper extends SQLiteOpenHelper {
         cv.put(DBHelper.KEY_TNotes, tNote.toString());
         cv.put(DBHelper.KEY_DATE, datenow.format(date));
         database.insert(DBHelper.TABLE_NOTES, null, cv);
-        Toast toast = Toast.makeText(context, "Запись сохранена", Toast.LENGTH_SHORT);
-        toast.show();
     }
 
     public void updNote(Context context, String lNote, String tNote, String id_Note, SQLiteDatabase database)
@@ -74,8 +72,6 @@ public class DBHelper extends SQLiteOpenHelper {
         cv.put(DBHelper.KEY_TNotes, tNote);
         cv.put(DBHelper.KEY_DATE, datenow.format(date));
         int updCount = database.update(DBHelper.TABLE_NOTES, cv, DBHelper.KEY_ID + "= ?", new String[]{id_Note});
-        Toast toast = Toast.makeText(context, "Запись изменена!", Toast.LENGTH_SHORT);
-        toast.show();
     }
 
     public int[] indexTaker(SQLiteDatabase database)

@@ -1,27 +1,47 @@
 package com.example.mynotes.Presenter;
 
-import com.example.mynotes.MainContract;
+import android.content.Context;
+import android.content.Intent;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ListView;
+
+import com.example.mynotes.Interface.IDetailNoteView;
+import com.example.mynotes.Interface.IListNotePresenter;
+import com.example.mynotes.Interface.IListNoteView;
+import com.example.mynotes.Interface.IMainModel;
 import com.example.mynotes.Model.MainModel;
-import com.example.mynotes.View.NoteArrayView;
+import com.example.mynotes.View.DetailNoteView;
+import com.example.mynotes.View.EditNoteView;
 
-import java.util.ArrayList;
+public class ListNotePresenter implements IListNotePresenter {
 
-public class ListNotePresenter implements MainContract.Presenter {
+    IMainModel iMainModel;
+    IListNoteView iListNoteView;
+    IDetailNoteView iDetailNoteView;
 
-    private MainContract.View mView;
-    private MainContract.Model mModel;
-
-    private ArrayList<NoteArrayView> arrayNotes;
-
-    public ListNotePresenter(MainContract.View mView)
+    public ListNotePresenter(IListNoteView _iIListNoteView)
     {
-        this.mView = mView;
-        this.mModel = new MainModel();
+        iListNoteView = _iIListNoteView;
+        iMainModel = new MainModel();
     }
 
-    public void activityOnLoad()
-    {
-        arrayNotes = mModel.loadNote();
-        mView.showData(arrayNotes);
+    @Override
+    public void onLoadNotes(Context context, ListView nl) {
+        iMainModel.onLoadListNotes(context, nl);
     }
+
+    @Override
+    public void onItemClick(Context context, int Position) {
+        String[] Data = iMainModel.onTakeData(context, Position);
+        iListNoteView.startActivity(Data, DetailNoteView.class);
+    }
+
+    @Override
+    public void onLongItemClick(Context context, int Position) {
+        String[] Data = iMainModel.onTakeData(context, Position);
+        iListNoteView.startActivity(Data, EditNoteView.class);
+    }
+
+
 }
