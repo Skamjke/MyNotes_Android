@@ -29,8 +29,7 @@ public class ListNoteView extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View v)
     {
-        Intent intent = new Intent(this, AddNoteView.class);
-        startActivity(intent);
+        StartActivity(new Intent(this, AddNoteView.class));
     }
 
     @Override
@@ -67,11 +66,14 @@ public class ListNoteView extends AppCompatActivity implements View.OnClickListe
 
     public void onRestart() {
         super.onRestart();
-        setContentView(R.layout.list_note_layout);
         nl = (ListView) findViewById(R.id.nl);
         nl.setOnItemClickListener(this);
         nl.setOnItemLongClickListener(this);
+        iListNotePresenter = new ListNotePresenter(this);
         iListNotePresenter.onLoadNotes(this, nl);
+
+        addNote = (Button) findViewById(R.id.addNotes);
+        addNote.setOnClickListener(this);
 
     }
 

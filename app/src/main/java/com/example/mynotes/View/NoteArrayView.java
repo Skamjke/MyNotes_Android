@@ -1,7 +1,5 @@
 package com.example.mynotes.View;
 
-import java.util.jar.Attributes;
-
 public class NoteArrayView {
     public String name, text, date;
 
