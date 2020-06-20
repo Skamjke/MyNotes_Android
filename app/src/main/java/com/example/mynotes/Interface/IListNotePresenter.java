@@ -8,6 +8,6 @@ import android.widget.ListView;
 
 public interface IListNotePresenter {
     void onLoadNotes(Context context, ListView nl);
-    void onItemClick(Context context,int Position);
-    void onLongItemClick(Context context,int Position);
+    void onItemClick(Context context, int Position, Class<?> cls);
+    void onLongItemClick(Context context, int Position, Class<?> cls);
 }

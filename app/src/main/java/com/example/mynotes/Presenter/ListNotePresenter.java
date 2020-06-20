@@ -18,7 +18,6 @@ public class ListNotePresenter implements IListNotePresenter {
 
     IMainModel iMainModel;
     IListNoteView iListNoteView;
-    IDetailNoteView iDetailNoteView;
 
     public ListNotePresenter(IListNoteView _iIListNoteView)
     {
@@ -32,15 +31,23 @@ public class ListNotePresenter implements IListNotePresenter {
     }
 
     @Override
-    public void onItemClick(Context context, int Position) {
+    public void onItemClick(Context context, int Position, Class<?> cls) {
         String[] Data = iMainModel.onTakeData(context, Position);
-        iListNoteView.startActivity(Data, DetailNoteView.class);
+        Intent intent = new Intent(context, cls);
+        intent.putExtra("note_id", Data[0]);
+        intent.putExtra("label", Data[1]);
+        intent.putExtra("text", Data[2]);
+        iListNoteView.StartActivity(intent);
     }
 
     @Override
-    public void onLongItemClick(Context context, int Position) {
+    public void onLongItemClick(Context context, int Position, Class<?> cls) {
         String[] Data = iMainModel.onTakeData(context, Position);
-        iListNoteView.startActivity(Data, EditNoteView.class);
+        Intent intent = new Intent(context, cls);
+        intent.putExtra("note_id", Data[0]);
+        intent.putExtra("label", Data[1]);
+        intent.putExtra("text", Data[2]);
+        iListNoteView.StartActivity(intent);
     }
 
 

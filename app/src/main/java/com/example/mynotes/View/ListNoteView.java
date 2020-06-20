@@ -29,8 +29,8 @@ public class ListNoteView extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View v)
     {
-        Intent addNotesint = new Intent(this, AddNoteView.class);
-        startActivity(addNotesint);
+        Intent intent = new Intent(this, AddNoteView.class);
+        startActivity(intent);
     }
 
     @Override
@@ -50,21 +50,18 @@ public class ListNoteView extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-        iListNotePresenter.onItemClick(this, position);
+        iListNotePresenter.onItemClick(this, position, DetailNoteView.class);
     }
 
     @Override
-    public void startActivity(String[] Data, Class<?> cls) {
-        Intent intent = new Intent (ListNoteView.this, cls);
-        intent.putExtra("note_id", Data[0]);
-        intent.putExtra("label", Data[1]);
-        intent.putExtra("text", Data[2]);
+    public void StartActivity(Intent intent) {
         startActivity(intent);
     }
 
+
     @Override
     public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-        iListNotePresenter.onLongItemClick(this, position);
+        iListNotePresenter.onLongItemClick(this, position, EditNoteView.class);
         return false;
     }
 

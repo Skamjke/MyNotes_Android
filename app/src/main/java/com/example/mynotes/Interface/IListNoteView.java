@@ -1,5 +1,7 @@
 package com.example.mynotes.Interface;
 
+import android.content.Intent;
+
 public interface IListNoteView {
-    void startActivity(String[] Data, Class<?> cls);
+    void StartActivity(Intent intent);
 }
