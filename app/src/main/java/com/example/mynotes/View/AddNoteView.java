@@ -1,5 +1,7 @@
 package com.example.mynotes.View;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -12,7 +14,7 @@ import com.example.mynotes.Presenter.AddNotePresenter;
 import com.example.mynotes.Interface.IAddNotePresenter;
 import com.example.mynotes.R;
 
-public class AddNoteView extends AppCompatActivity implements IAddNoteView, View.OnClickListener /*DialogInterface.OnClickListener*/ {
+public class AddNoteView extends AppCompatActivity implements IAddNoteView, View.OnClickListener, DialogInterface.OnClickListener {
 
     private IAddNotePresenter iaddNotePresenter;
     private Button saveBtn, backToMain;
@@ -59,5 +61,29 @@ public class AddNoteView extends AppCompatActivity implements IAddNoteView, View
         TNote = (EditText)findViewById(R.id.text_note);
         iaddNotePresenter = new AddNotePresenter(this);
 
+    }
+
+    public void AlertDLG () {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage("Сохранить заметку?");
+        builder.setCancelable(false);
+        builder.setPositiveButton("Да", this);
+        builder.setNegativeButton("Нет", this);
+        AlertDialog alert = builder.create();
+        alert.setTitle("Закрытие формы");
+        alert.show();
+    }
+
+    @Override
+    public void onClick(DialogInterface dialog, int which) {
+        switch (which)
+        {
+            case -1:
+                iaddNotePresenter.onClickSaveNote(this, lNote, tNote, R.id.save_edit);
+                break;
+            case -2:
+                openListNoteView();
+                break;
+        }
     }
 }

@@ -10,7 +10,7 @@ import com.example.mynotes.Model.NoteModel;
 import com.example.mynotes.R;
 import com.example.mynotes.Interface.IAddNoteView;
 
-public class AddNotePresenter implements IAddNotePresenter, DialogInterface.OnClickListener {
+public class AddNotePresenter implements IAddNotePresenter {
     INoteModel iMainModel;
     IAddNoteView iAddNoteView;
     Context context;
@@ -38,36 +38,11 @@ public class AddNotePresenter implements IAddNotePresenter, DialogInterface.OnCl
 
             case R.id.backBtn:
                 if (lNote.length() > 0) {
-                    AlertDLG();
+                    iAddNoteView.AlertDLG();
                 } else {
                     iAddNoteView.openListNoteView();
                 }
                 break;
         }
     }
-
-    public void AlertDLG () {
-        AlertDialog.Builder builder = new AlertDialog.Builder(context);
-        builder.setMessage("Сохранить заметку?");
-        builder.setCancelable(false);
-        builder.setPositiveButton("Да", this);
-        builder.setNegativeButton("Нет", this);
-        AlertDialog alert = builder.create();
-        alert.setTitle("Закрытие формы");
-        alert.show();
-    }
-
-    @Override
-    public void onClick(DialogInterface dialog, int which) {
-        switch (which)
-        {
-            case -1:
-                iMainModel.onSaveNote(context, lNote, tNote);
-                iAddNoteView.openListNoteView();
-                break;
-            case -2:
-                iAddNoteView.openListNoteView();
-                break;
-        }
-}
 }

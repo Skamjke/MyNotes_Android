@@ -5,4 +5,5 @@ public interface IAddNoteView {
         void ErrorNullName();
         void showSaveToast();
         void openListNoteView();
+        void AlertDLG();
 }

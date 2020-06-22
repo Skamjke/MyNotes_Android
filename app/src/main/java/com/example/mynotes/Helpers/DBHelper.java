@@ -93,7 +93,7 @@ public class DBHelper extends SQLiteOpenHelper {
         if (cursor.moveToFirst()) {
             do {
                 arrayIndex = indexTaker(database);
-                notes.add(new NoteModel(cursor.getString(arrayIndex[1]), null, cursor.getString(arrayIndex[3])));
+                notes.add(new NoteModel(cursor.getString(arrayIndex[1]), cursor.getString(arrayIndex[3])));
             } while (cursor.moveToNext());
         }
         return notes;

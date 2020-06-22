@@ -14,17 +14,16 @@ import java.util.ArrayList;
 public class NoteModel implements INoteModel {
 
 
-    public String name, text, date;
+    public String name, date;
 
     public NoteModel()
     {
 
     }
 
-    public NoteModel(String _name, String _text, String _date)
+    public NoteModel(String _name, String _date)
     {
         name = _name;
-        text = _text;
         date = _date;
     }
 
