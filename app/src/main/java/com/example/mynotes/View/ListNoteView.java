@@ -55,7 +55,6 @@ public class ListNoteView extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void StartActivity(Intent intent, String[] Data) {
-
         intent.putExtra("note_id", Data[0]);
         intent.putExtra("label", Data[1]);
         intent.putExtra("text", Data[2]);
