@@ -12,19 +12,22 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.mynotes.Helpers.DBHelper;
+import com.example.mynotes.Interface.IEditNotePresenter;
+import com.example.mynotes.Interface.IEditNoteView;
+import com.example.mynotes.Presenter.EditNotePresenter;
 import com.example.mynotes.R;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class EditNoteView extends AppCompatActivity implements View.OnClickListener {
+public class EditNoteView extends AppCompatActivity implements IEditNoteView, View.OnClickListener {
 
     TextView lNote, tNote;
-    DBHelper dbHelper;
     String LNote,TNote, idNote;
     Button saveEdit, backToMain;
     Context ctx;
-    @Override
+    IEditNotePresenter iEditNotePresenter;
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.edit_note_layout);
@@ -41,45 +44,40 @@ public class EditNoteView extends AppCompatActivity implements View.OnClickListe
         backToMain.setOnClickListener(EditNoteView.this);
 
         Intent intent = getIntent();
-         LNote = intent.getStringExtra("label");
-         TNote = intent.getStringExtra("text");
-         idNote = intent.getStringExtra("note_id");
+        LNote = intent.getStringExtra("label");
+        TNote = intent.getStringExtra("text");
+        idNote = intent.getStringExtra("note_id");
 
         lNote.setText(LNote);
         tNote.setText(TNote);
 
-        dbHelper = new DBHelper(this);
+        iEditNotePresenter = new EditNotePresenter(this);
 
-        
     }
 
+    @Override
     public void onClick(View v)
     {
-        String LNote = lNote.getText().toString();
-        String TNote = tNote.getText().toString();
-        ContentValues cv = new ContentValues();
-        switch (v.getId())
-        {
-            case R.id.save_edit:
-                if (idNote.equalsIgnoreCase(""))
-                {
-                    break;
-                }
+        String _LNote = lNote.getText().toString();
+        String _TNote = tNote.getText().toString();
 
-                if (LNote.length() > 0)
-                {
-                    final Date date = new Date();
-                    final SimpleDateFormat datenow = new SimpleDateFormat("dd.MM.yyyy");
-                    SQLiteDatabase database = dbHelper.getWritableDatabase();
-                    dbHelper.updNote(ctx, LNote, TNote, idNote, database);
-                    dbHelper.close();
-                    finish();
-                }else {Toast toast = Toast.makeText(getApplicationContext(), "Название заметки отстуствует!", Toast.LENGTH_SHORT); toast.show();};
-                break;
-
-            case R.id.backBtn:
-                finish();
-                break;
-        }
+        iEditNotePresenter.onClickSaveUpd(this, _LNote, _TNote, idNote, v.getId());
     }
+
+    @Override
+    public void showUpdateToast() {
+        Toast toast = Toast.makeText(this, "Запись изменена!", Toast.LENGTH_SHORT);
+        toast.show();
+    }
+
+    @Override
+    public void ErrorNullName() {
+        Toast toast = Toast.makeText(this, "Поле название записи не заполнено!", Toast.LENGTH_SHORT);
+        toast.show();
+    }
+
+    public void openListView() {
+        finish();
+    }
+
 }

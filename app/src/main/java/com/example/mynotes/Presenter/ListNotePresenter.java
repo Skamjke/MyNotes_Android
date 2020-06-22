@@ -1,27 +1,41 @@
 package com.example.mynotes.Presenter;
 
-import com.example.mynotes.MainContract;
-import com.example.mynotes.Model.MainModel;
-import com.example.mynotes.Helpers.NotesArray;
+import android.content.Context;
+import android.content.Intent;
+import android.widget.ListView;
 
-import java.util.ArrayList;
+import com.example.mynotes.Interface.IListNotePresenter;
+import com.example.mynotes.Interface.IListNoteView;
+import com.example.mynotes.Interface.INoteModel;
+import com.example.mynotes.Model.NoteModel;
 
-public class ListNotePresenter implements MainContract.Presenter {
+public class ListNotePresenter implements IListNotePresenter {
 
-    private MainContract.View mView;
-    private MainContract.Model mModel;
+    INoteModel iMainModel;
+    IListNoteView iListNoteView;
 
-    private ArrayList<NotesArray> arrayNotes;
-
-    public ListNotePresenter(MainContract.View mView)
+    public ListNotePresenter(IListNoteView _iIListNoteView)
     {
-        this.mView = mView;
-        this.mModel = new MainModel();
+        iListNoteView = _iIListNoteView;
+        iMainModel = new NoteModel();
     }
 
-    public void activityOnLoad()
-    {
-        arrayNotes = mModel.loadNote();
-        mView.showData(arrayNotes);
+    @Override
+    public void onLoadNotes(Context context, ListView nl) {
+        iMainModel.onLoadListNotes(context, nl);
     }
+
+    @Override
+    public void onItemClick(Context context, int Position, Intent intent) {
+        String[] Data = iMainModel.onTakeData(context, Position);
+        iListNoteView.StartActivity(intent, Data);
+    }
+
+    @Override
+    public void onLongItemClick(Context context, int Position, Intent intent) {
+        String[] Data = iMainModel.onTakeData(context, Position);
+        iListNoteView.StartActivity(intent, Data);
+    }
+
+
 }

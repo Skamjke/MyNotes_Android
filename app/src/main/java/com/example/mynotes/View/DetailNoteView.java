@@ -1,7 +1,6 @@
 package com.example.mynotes.View;
 
 import android.content.Intent;
-import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -9,25 +8,21 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.mynotes.Helpers.DBHelper;
+import com.example.mynotes.Interface.IDetailNotePresenter;
+import com.example.mynotes.Interface.IDetailNoteView;
+import com.example.mynotes.Presenter.DetailNotePresenter;
 import com.example.mynotes.R;
 
-public class DetailNoteView extends AppCompatActivity implements View.OnClickListener {
+public class DetailNoteView extends AppCompatActivity implements View.OnClickListener, IDetailNoteView {
 
-    TextView lableView,textView;
-    Button delBtn;
-    DBHelper dbHelper;
     private String id_note, lNote, tNote;
+    private TextView lableView,textView;
+    Button delBtn;
+    IDetailNotePresenter iDetailNotePresenter;
 
     public void onClick(View v)
     {
-        dbHelper = new DBHelper(this);
-        SQLiteDatabase database = dbHelper.getWritableDatabase();
-
-        int delCount = database.delete(DBHelper.TABLE_NOTES, DBHelper.KEY_ID + "=" + id_note, null);
-        Toast toast = Toast.makeText(getApplicationContext(), "Запись удалена", Toast.LENGTH_SHORT);
-        toast.show();
-        finish();
+        iDetailNotePresenter.onClickDelete(this, id_note);
     }
 
     @Override
@@ -49,5 +44,15 @@ public class DetailNoteView extends AppCompatActivity implements View.OnClickLis
         lableView.setText(lNote);
         textView.setText(tNote);
 
+        iDetailNotePresenter = new DetailNotePresenter(this);
+
     }
+
+    @Override
+    public void showDeleteToast() {
+        Toast toast = Toast.makeText(getApplicationContext(), "Запись удалена", Toast.LENGTH_SHORT);
+        toast.show();
+        finish();
+    }
+
 }
