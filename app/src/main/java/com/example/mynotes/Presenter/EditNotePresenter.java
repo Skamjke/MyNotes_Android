@@ -1,24 +1,22 @@
 package com.example.mynotes.Presenter;
 
 import android.content.Context;
-import android.database.sqlite.SQLiteDatabase;
-import android.widget.Toast;
 
 import com.example.mynotes.Interface.IEditNotePresenter;
 import com.example.mynotes.Interface.IEditNoteView;
-import com.example.mynotes.Interface.IMainModel;
-import com.example.mynotes.Model.MainModel;
+import com.example.mynotes.Interface.INoteModel;
+import com.example.mynotes.Model.NoteModel;
 import com.example.mynotes.R;
 
 public class EditNotePresenter implements IEditNotePresenter {
 
-    IMainModel iMainModel;
+    INoteModel iMainModel;
     IEditNoteView iEditNoteView;
 
     public EditNotePresenter(IEditNoteView _iEditNoteView)
     {
         iEditNoteView = _iEditNoteView;
-        iMainModel = new MainModel();
+        iMainModel = new NoteModel();
     }
 
 

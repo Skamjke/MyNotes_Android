@@ -6,9 +6,8 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.widget.Toast;
 
-import com.example.mynotes.View.NoteArrayView;
+import com.example.mynotes.Model.NoteModel;
 import com.example.mynotes.View.AddNoteView;
 
 import java.text.SimpleDateFormat;
@@ -86,15 +85,15 @@ public class DBHelper extends SQLiteOpenHelper {
         return arrayIndex;
     }
 
-    public ArrayList<NoteArrayView> noteView(SQLiteDatabase database) {
-        ArrayList<NoteArrayView> notes = new ArrayList<>();
+    public ArrayList<NoteModel> noteView(SQLiteDatabase database) {
+        ArrayList<NoteModel> notes = new ArrayList<>();
         Cursor cursor = database.query(DBHelper.TABLE_NOTES, null, null, null, null, null, null);
 
         int[] arrayIndex;
         if (cursor.moveToFirst()) {
             do {
                 arrayIndex = indexTaker(database);
-                notes.add(new NoteArrayView(cursor.getString(arrayIndex[1]), null, cursor.getString(arrayIndex[3])));
+                notes.add(new NoteModel(cursor.getString(arrayIndex[1]), null, cursor.getString(arrayIndex[3])));
             } while (cursor.moveToNext());
         }
         return notes;

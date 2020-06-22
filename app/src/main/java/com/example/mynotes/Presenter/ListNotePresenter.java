@@ -2,27 +2,22 @@ package com.example.mynotes.Presenter;
 
 import android.content.Context;
 import android.content.Intent;
-import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ListView;
 
-import com.example.mynotes.Interface.IDetailNoteView;
 import com.example.mynotes.Interface.IListNotePresenter;
 import com.example.mynotes.Interface.IListNoteView;
-import com.example.mynotes.Interface.IMainModel;
-import com.example.mynotes.Model.MainModel;
-import com.example.mynotes.View.DetailNoteView;
-import com.example.mynotes.View.EditNoteView;
+import com.example.mynotes.Interface.INoteModel;
+import com.example.mynotes.Model.NoteModel;
 
 public class ListNotePresenter implements IListNotePresenter {
 
-    IMainModel iMainModel;
+    INoteModel iMainModel;
     IListNoteView iListNoteView;
 
     public ListNotePresenter(IListNoteView _iIListNoteView)
     {
         iListNoteView = _iIListNoteView;
-        iMainModel = new MainModel();
+        iMainModel = new NoteModel();
     }
 
     @Override
@@ -31,23 +26,15 @@ public class ListNotePresenter implements IListNotePresenter {
     }
 
     @Override
-    public void onItemClick(Context context, int Position, Class<?> cls) {
+    public void onItemClick(Context context, int Position, Intent intent) {
         String[] Data = iMainModel.onTakeData(context, Position);
-        Intent intent = new Intent(context, cls);
-        intent.putExtra("note_id", Data[0]);
-        intent.putExtra("label", Data[1]);
-        intent.putExtra("text", Data[2]);
-        iListNoteView.StartActivity(intent);
+        iListNoteView.StartActivity(intent, Data);
     }
 
     @Override
-    public void onLongItemClick(Context context, int Position, Class<?> cls) {
+    public void onLongItemClick(Context context, int Position, Intent intent) {
         String[] Data = iMainModel.onTakeData(context, Position);
-        Intent intent = new Intent(context, cls);
-        intent.putExtra("note_id", Data[0]);
-        intent.putExtra("label", Data[1]);
-        intent.putExtra("text", Data[2]);
-        iListNoteView.StartActivity(intent);
+        iListNoteView.StartActivity(intent, Data);
     }
 
 

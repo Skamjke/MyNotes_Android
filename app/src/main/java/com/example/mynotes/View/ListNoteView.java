@@ -12,7 +12,8 @@ import android.widget.ListView;
 
 import com.example.mynotes.Interface.IListNotePresenter;
 import com.example.mynotes.Interface.IListNoteView;
-import com.example.mynotes.Presenter.NoteAdapterPresenter;
+import com.example.mynotes.Adapters.NoteAdapter;
+import com.example.mynotes.Model.NoteModel;
 import com.example.mynotes.Presenter.ListNotePresenter;
 import com.example.mynotes.R;
 
@@ -21,15 +22,15 @@ public class ListNoteView extends AppCompatActivity implements View.OnClickListe
     private Button addNote;
     IListNotePresenter iListNotePresenter;
     private ListView nl;
-    private NoteAdapterPresenter noteAdapter;
-    private ArrayList<NoteArrayView> notes;
+    private NoteAdapter noteAdapter;
+    private ArrayList<NoteModel> notes;
 
 
 
     @Override
     public void onClick(View v)
     {
-        StartActivity(new Intent(this, AddNoteView.class));
+        startActivity(new Intent(this, AddNoteView.class));
     }
 
     @Override
@@ -48,19 +49,24 @@ public class ListNoteView extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-        iListNotePresenter.onItemClick(this, position, DetailNoteView.class);
+        Intent intent = new Intent(this, DetailNoteView.class);
+        iListNotePresenter.onItemClick(this, position, intent);
     }
 
     @Override
-    public void StartActivity(Intent intent) {
+    public void StartActivity(Intent intent, String[] Data) {
+
+        intent.putExtra("note_id", Data[0]);
+        intent.putExtra("label", Data[1]);
+        intent.putExtra("text", Data[2]);
         startActivity(intent);
     }
 
 
     @Override
     public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-        iListNotePresenter.onLongItemClick(this, position, EditNoteView.class);
+        Intent intent = new Intent(this, EditNoteView.class);
+        iListNotePresenter.onLongItemClick(this, position, intent);
         return false;
     }
 
